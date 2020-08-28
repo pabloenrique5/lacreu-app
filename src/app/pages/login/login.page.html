@@ -1,0 +1,28 @@
+<ion-header>
+  <div class="login-header ion-padding">
+    <img class="logo-img" src="assets/images/lacreu.png">
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class="center">
+    <ion-item>
+      <ion-icon name="person-outline" slot="start" color="primary"></ion-icon>
+      <ion-input [(ngModel)]="user" placeholder="Usuario" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
+      <ion-input [(ngModel)]="password" placeholder="Contraseña" type="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-button color="primary" class="login-button center" shape="round" fill="solid" 
+      size="large" expand="block" (click)="login()">Acceder</ion-button>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="no-count">¿No tienes cuenta? <span class="register-link center" (click)="register()">Regístrate</span></ion-label>
+    </ion-item>
+  </div>
+</ion-content>
