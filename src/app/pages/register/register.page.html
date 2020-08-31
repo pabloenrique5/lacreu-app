@@ -5,31 +5,32 @@
 </ion-header>
 
 <ion-content>
-  <div class="center">
-    <ion-item>
-      <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
-      <ion-input [(ngModel)]="email" placeholder="Correo electrónico" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-icon name="person-outline" slot="start" color="primary"></ion-icon>
-      <ion-input [(ngModel)]="user" placeholder="Usuario" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
-      <ion-input [(ngModel)]="password" placeholder="Contraseña" type="password"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
-      <ion-input [(ngModel)]="confirmPassword" placeholder="Repetir contraseña" type="password"></ion-input>
-    </ion-item>
-
-    <ion-button color="primary" class="login-button buttons-cont" shape="round" fill="solid" 
-      size="default" expand="block" (click)="register()">Registrar</ion-button>
-    <ion-button color="danger" class="login-button buttons-cont" shape="round" fill="solid" 
-      size="default" expand="block" (click)="cancel()">Cancelar</ion-button>
-
-  </div>
+  <form (ngSubmit)="register()">
+    <div class="center">
+      <ion-item>
+        <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
+        <ion-input [(ngModel)]="email" placeholder="Correo electrónico" type="text" name="email"
+          pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"
+          inputmode="email" required="true"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="password" placeholder="Contraseña" type="password" required="true"
+          name="password"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="confirmPassword" placeholder="Repetir contraseña" type="password"
+          required="true" name="confirmPassword"></ion-input>
+      </ion-item>
+  
+      <ion-button color="primary" class="login-button buttons-cont" shape="round" fill="solid" 
+        size="default" expand="block" type="submit">Registrar</ion-button>
+      <ion-button color="danger" class="login-button buttons-cont" shape="round" fill="solid" 
+        size="default" expand="block" (click)="cancel()">Cancelar</ion-button>
+  
+    </div>
+  </form>
 </ion-content>
