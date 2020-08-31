@@ -24,9 +24,13 @@ export class LoginPage implements OnInit {
   login() {
     const promise = this.authService.doLogin(this.email, this.password);
     promise.then(res => {
-      this.router.navigate(['home']);
+      res.user.emailVerified ?
+       this.router.navigate(['home']) :
+       this.toastService.presentToast('No ha verificado su correo electrónico. Compruebe la bandeja de entrada');
     }).catch(error => {
       console.log(error);
+      error.code === 'auth/user-not-found' ?
+      this.toastService.presentToast('No existe el usuario') :
       this.toastService.presentToast('El correo electrónico o la contraseña no son correctos');
     });
   }
@@ -34,6 +38,17 @@ export class LoginPage implements OnInit {
   // Navega a la página de registro
   register() {
     this.router.navigate(['register']);
+  }
+
+  // Envía un email para reestablecer la contraseña
+  reestablish() {
+
+  }
+
+  // Cuando estamos a punto de irnos, dejamos los campos en blanco
+  ionViewDidLeave() {
+    this.email = '';
+    this.password = '';
   }
 
 }

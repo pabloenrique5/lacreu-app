@@ -1,13 +1,14 @@
 import { ToastService } from './toast.service';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private fireAuth: AngularFireAuth, private toastService: ToastService) { }
+  constructor(private fireAuth: AngularFireAuth) { }
 
   // Realiza el registro de autenticación
   doRegister(email: string, password: string) {
@@ -16,6 +17,7 @@ export class AuthService {
       .then(res => {
         console.log('[AuthService]: Usuario creado con éxito');
         console.log(res);
+        this.sendVerification();
         resolve(res);
       })
       .catch(error => {
@@ -32,7 +34,7 @@ export class AuthService {
       this.fireAuth.signInWithEmailAndPassword(email, password)
       .then(res => {
         console.log('[AuthService]: Acceso correcto a cuenta');
-        console.log(res);
+        console.log();
         resolve(res);
       })
       .catch(error => {
@@ -47,5 +49,26 @@ export class AuthService {
   doLogout() {
     this.fireAuth.signOut();
     console.log('[AuthService]: Sesión cerrada');
+  }
+
+  sendReestablishPasswordEmail() {
+    // this.fireAuth.sendPasswordResetEmail()
+  }
+
+  // Obtiene el usuario actualmente autenticado
+  getCurrentUser() {
+    return firebase.auth().currentUser;
+  }
+
+  // Envía un email de verificación
+  sendVerification() {
+    const user = firebase.auth().currentUser;
+    user.sendEmailVerification()
+      .then(() => {
+        console.log('[AuthService]: Email enviado');
+      }).catch(error => {
+        console.log('[AuthService]: Error enviando el email de verificación');
+        console.log(error);
+      });
   }
 }

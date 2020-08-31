@@ -28,7 +28,7 @@ export class RegisterPage implements OnInit {
     if (this.password === this.confirmPassword) {
         const promise = this.authService.doRegister(this.email, this.password);
         promise.then((result) => {
-          this.toastService.presentToast('Usuario registrado correctamente');
+          this.toastService.presentToast('Le acabamos de enviar un correo electrónico. Verifíquelo en su bandeja de entrada');
           this.router.navigate(['login']);
         }).catch(error => {
           switch (error.code) {
