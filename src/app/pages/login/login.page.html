@@ -9,26 +9,29 @@
     <div class="center">
       <ion-item>
         <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
-        <ion-input [(ngModel)]="email" name="email" placeholder="Correo electrónico" type="text"></ion-input>
+        <ion-input [(ngModel)]="email" name="email" placeholder="Correo electrónico" type="text" required="true"
+          pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>
       </ion-item>
   
       <ion-item>
         <ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
-        <ion-input [(ngModel)]="password" name="password" placeholder="Contraseña" type="password"></ion-input>
+        <ion-input [(ngModel)]="password" name="password" placeholder="Contraseña" type="password" required="true"></ion-input>
       </ion-item>
   
       <ion-item>
         <ion-button color="primary" class="login-button center" shape="round" fill="solid" 
         size="large" expand="block" type="submit">Acceder</ion-button>
       </ion-item>
+
+      <ion-item>
+        <ion-button color="primary" class="reestablish-button center" shape="round" fill="outline" 
+        size="default" expand="block" (click)="reestablish()">Reestablecer contraseña</ion-button>
+      </ion-item>
       
       <ion-item>
         <ion-label class="no-count">¿No tienes cuenta? <span class="register-link center" (click)="register()">Regístrate</span></ion-label>
       </ion-item>
 
-      <ion-item>
-        <ion-label class="no-count">¿Has olvidado tu contraseña? <span class="register-link center" (click)="reestablish()">Reestablecer</span></ion-label>
-      </ion-item>
     </div>
   </form>
 </ion-content>

@@ -51,10 +51,6 @@ export class AuthService {
     console.log('[AuthService]: Sesión cerrada');
   }
 
-  sendReestablishPasswordEmail() {
-    // this.fireAuth.sendPasswordResetEmail()
-  }
-
   // Obtiene el usuario actualmente autenticado
   getCurrentUser() {
     return firebase.auth().currentUser;
@@ -70,5 +66,21 @@ export class AuthService {
         console.log('[AuthService]: Error enviando el email de verificación');
         console.log(error);
       });
+  }
+
+  // Envía un email de reseteo de password
+  sendResetPassword(email) {
+    return new Promise<any>((resolve, reject) => {
+      const auth = firebase.auth();
+      auth.sendPasswordResetEmail(email)
+      .then((res) => {
+        console.log('[AuthService]: Email enviado');
+        resolve(res);
+      }).catch(error => {
+        console.log('[AuthService]: Error enviando el email de reseteo de contraseña');
+        console.log(error);
+        reject(error);
+      });
+    });
   }
 }

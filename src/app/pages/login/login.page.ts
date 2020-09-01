@@ -40,9 +40,9 @@ export class LoginPage implements OnInit {
     this.router.navigate(['register']);
   }
 
-  // Envía un email para reestablecer la contraseña
+  // Navega a la página de registro
   reestablish() {
-
+    this.router.navigate(['reestablish']);
   }
 
   // Cuando estamos a punto de irnos, dejamos los campos en blanco
