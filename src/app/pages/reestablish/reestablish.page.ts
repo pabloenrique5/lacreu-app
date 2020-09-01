@@ -22,7 +22,7 @@ export class ReestablishPage implements OnInit {
   sendResetEmail() {
     const promise = this.authService.sendResetPassword(this.email);
     promise.then((result) => {
-      this.toastService.presentToast('Le acabamos de enviar un correo electrónico. Verifíquelo en su bandeja de entrada');
+      this.toastService.presentAlert('Información', 'Le acabamos de enviar un correo electrónico. Verifíquelo en su bandeja de entrada');
       this.router.navigate(['login']);
     }).catch(error => {
       switch (error.code) {

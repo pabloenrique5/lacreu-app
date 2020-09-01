@@ -28,15 +28,16 @@ export class RegisterPage implements OnInit {
     if (this.password === this.confirmPassword) {
         const promise = this.authService.doRegister(this.email, this.password);
         promise.then((result) => {
-          this.toastService.presentToast('Le acabamos de enviar un correo electrónico. Verifíquelo en su bandeja de entrada');
+          this.toastService.presentAlert('Información',
+          'Le acabamos de enviar un correo electrónico. Verifíquelo en su bandeja de entrada');
           this.router.navigate(['login']);
         }).catch(error => {
           switch (error.code) {
             case 'auth/email-already-in-use':
-              this.toastService.presentToast('Ya existe un usuario con este correo electrónico');
+              this.toastService.presentAlert('Atención','Ya existe un usuario con este correo electrónico');
               break;
             case 'auth/weak-password':
-              this.toastService.presentToast('La contraseña debe tener al menos 6 caracteres');
+              this.toastService.presentAlert('Atención', 'La contraseña debe tener al menos 6 caracteres');
               break;
             case 'auth/invalid-email':
               this.toastService.presentToast('El correo electrónico no es válido');

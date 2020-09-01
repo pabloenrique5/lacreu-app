@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
     promise.then(res => {
       res.user.emailVerified ?
        this.router.navigate(['tabs']) :
-       this.toastService.presentToast('No ha verificado su correo electrónico. Compruebe la bandeja de entrada');
+       this.toastService.presentAlert('Atención', 'No ha verificado su correo electrónico. Compruebe la bandeja de entrada');
     }).catch(error => {
       console.log(error);
       error.code === 'auth/user-not-found' ?
