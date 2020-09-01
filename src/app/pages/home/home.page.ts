@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { auth } from 'firebase';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,13 +7,6 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  user: any;
-
-  constructor(private authService: AuthService, private router: Router) {}
-
-  // Antes de entrar en home, comprobamos si el correo está verificado
-  ionViewWillEnter() {
-    
-  }
+  constructor() {}
 
 }
