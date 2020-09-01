@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
     const promise = this.authService.doLogin(this.email, this.password);
     promise.then(res => {
       res.user.emailVerified ?
-       this.router.navigate(['home']) :
+       this.router.navigate(['tabs']) :
        this.toastService.presentToast('No ha verificado su correo electrónico. Compruebe la bandeja de entrada');
     }).catch(error => {
       console.log(error);

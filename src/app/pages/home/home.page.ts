@@ -16,13 +16,7 @@ export class HomePage {
 
   // Antes de entrar en home, comprobamos si el correo está verificado
   ionViewWillEnter() {
-    console.log('Usuario actual');
-    console.log(this.authService.getCurrentUser());
-    this.user = this.authService.getCurrentUser();
-    /*if (!this.user.emailVerified) {
-      this.authService.sendVerification();
-      this.router.navigate(['login']);
-    }*/
+    
   }
 
 }
