@@ -14,7 +14,7 @@ export class BookingPage implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(param => {
-      this.selectedSport = param['sport']
+      this.selectedSport = param['sport'];
     });
   }
 

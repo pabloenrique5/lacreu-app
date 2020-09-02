@@ -18,15 +18,11 @@
         <ion-input [(ngModel)]="password" name="password" placeholder="Contraseña" type="password" required="true"></ion-input>
       </ion-item>
   
-      <ion-item>
-        <ion-button color="primary" class="login-button center" shape="round" fill="solid" 
+      <ion-button color="primary" class="login-button center" shape="round" fill="solid" 
         size="large" expand="block" type="submit">Acceder</ion-button>
-      </ion-item>
 
-      <ion-item>
-        <ion-button color="primary" class="reestablish-button center" shape="round" fill="outline" 
+      <ion-button color="primary" class="reestablish-button center" shape="round" fill="outline" 
         size="default" expand="block" (click)="reestablish()">Reestablecer contraseña</ion-button>
-      </ion-item>
       
       <ion-item>
         <ion-label class="no-count">¿No tienes cuenta? <span class="register-link center" (click)="register()">Regístrate</span></ion-label>
