@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'booking/:sport',
+    loadChildren: () => import('./pages/booking/booking.module').then( m => m.BookingPageModule)
   }
 ];
 
