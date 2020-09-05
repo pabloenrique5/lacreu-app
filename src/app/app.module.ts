@@ -17,11 +17,14 @@ import { firebaseConfig } from 'src/environments/environment';
 // Autenticación
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
+// Calendario
+import { CalendarModule } from 'ion2-calendar';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig),
-            AngularFirestoreModule, AngularFireAuthModule],
+            AngularFirestoreModule, AngularFireAuthModule, CalendarModule],
   providers: [
     StatusBar,
     SplashScreen,

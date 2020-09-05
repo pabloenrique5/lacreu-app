@@ -1,3 +1,4 @@
+import { FirebaseService } from './firebase.service';
 import { Injectable } from '@angular/core';
 import { ToastController, AlertController } from '@ionic/angular';
 
@@ -6,7 +7,7 @@ import { ToastController, AlertController } from '@ionic/angular';
 })
 export class ToastService {
 
-  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController) { }
+  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private firebaseService: FirebaseService) { }
 
   // Presentar Toast
   async presentToast(mes) {
@@ -25,6 +26,34 @@ export class ToastService {
       header: head,
       message: mes,
       buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  // Presentar diálogo de confirmación
+  async presentAlertConfirm(hour, day, user) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirmación',
+      message: '¿Quieres reservar esta hora?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Sí',
+          handler: () => {
+            this.firebaseService.reserve(hour, day, user).then(() => {
+              this.presentAlert('Información', 'Hora reservada con éxito');
+            }).catch((error) => {
+              console.log(error);
+              this.presentAlert('Atención', 'Ha ocurrido un error al reservar la hora');
+            });
+          }
+        }
+      ]
     });
     await alert.present();
   }

@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
     <ion-title>{{selectedSport}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-calendar [(ngModel)]="date"
+    (change)="onChange($event)"
+    [options]='options'
+    [type]="type"
+    [format]="'DD-MM-YYYY'">
+  </ion-calendar>
 
+  <ion-list>
+
+    <ion-item *ngFor="let h of hours; index as i">
+      <ion-label>{{ h.hour }}</ion-label>
+      <ion-label>{{ h.user }}</ion-label>
+      <div *ngIf="h.user; else nobooked">
+        <ion-button color="danger"  [disabled]="true">Reservado</ion-button>
+      </div>
+      <ng-template #nobooked>
+        <ion-button color="success" (click)="reserve(h.hour)">Reservar</ion-button>
+      </ng-template>
+    </ion-item>
+    
+  </ion-list>
 </ion-content>

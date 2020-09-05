@@ -8,12 +8,16 @@ import { BookingPageRoutingModule } from './booking-routing.module';
 
 import { BookingPage } from './booking.page';
 
+// Calendario
+import { CalendarModule } from 'ion2-calendar';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BookingPageRoutingModule
+    BookingPageRoutingModule,
+    CalendarModule
   ],
   declarations: [BookingPage]
 })
