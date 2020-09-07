@@ -59,28 +59,24 @@ export class BookingPage implements OnInit {
     this.hours = [];
     const map = new Map();
     // Obtenemos las reservas del día seleccionado
-    firebase.firestore().collection('bookings').where('day', '==', fecha).get().then(
+    firebase.firestore().collection('bookings').where('day', '==', fecha).onSnapshot(
       snapshot => {
+        this.hours = [];
         snapshot.forEach(doc => {
           console.log('Reserva encontrada');
           console.log(doc.data());
           map.set(doc.data().hour, doc.data().user);
         });
-      }
-    ).then(() => {
-      // Obtenemos todos los días y rellenamos las reservas encontradas
-      firebase.firestore().collection('hours').orderBy('hour').get().then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          const hour: any = {};
-          console.log(doc.data().hour);
-          if (map.get(doc.data().hour) !== null) {
-            hour.hour = doc.data().hour;
-            hour.user = map.get(doc.data().hour);
-          }
-          this.hours.push(hour);
-        });
-      }).catch(error => {
-        console.log(error);
+        firebase.firestore().collection('hours').orderBy('hour').get().then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            const hour: any = {};
+            console.log(doc.data().hour);
+            if (map.get(doc.data().hour) !== null) {
+              hour.hour = doc.data().hour;
+              hour.user = map.get(doc.data().hour);
+            }
+            this.hours.push(hour);
+          });
       });
     });
     console.log('Las horas');

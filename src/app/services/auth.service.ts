@@ -11,12 +11,15 @@ export class AuthService {
   constructor(private fireAuth: AngularFireAuth) { }
 
   // Realiza el registro de autenticación
-  doRegister(email: string, password: string) {
+  doRegister(email: string, password: string, user: string) {
     return new Promise<any>((resolve, reject) => {
       this.fireAuth.createUserWithEmailAndPassword(email, password)
       .then(res => {
         console.log('[AuthService]: Usuario creado con éxito');
         console.log(res);
+        res.user.updateProfile({
+          displayName: user
+        });
         this.sendVerification();
         resolve(res);
       })

@@ -13,6 +13,12 @@
           pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"
           inputmode="email" required="true"></ion-input>
       </ion-item>
+
+      <ion-item>
+        <ion-icon name="person-outline" color="primary" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="user" placeholder="Nombre" type="text" required="true"
+          name="password"></ion-input>
+      </ion-item>
   
       <ion-item>
         <ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>

@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RegisterPage implements OnInit {
 
   email: string;
+  user: string;
   password: string;
   confirmPassword: string;
 
@@ -26,7 +27,7 @@ export class RegisterPage implements OnInit {
   // Realiza comprobaciones y registra un nuevo usuario
   register() {
     if (this.password === this.confirmPassword) {
-        const promise = this.authService.doRegister(this.email, this.password);
+        const promise = this.authService.doRegister(this.email, this.password, this.user);
         promise.then((result) => {
           this.toastService.presentAlert('Información',
           'Le acabamos de enviar un correo electrónico. Verifíquelo en su bandeja de entrada');
