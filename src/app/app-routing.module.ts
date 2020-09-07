@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'booking/:sport',
     loadChildren: () => import('./pages/booking/booking.module').then( m => m.BookingPageModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
   }
 ];
 

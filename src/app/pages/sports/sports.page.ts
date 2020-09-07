@@ -13,8 +13,14 @@ export class SportsPage implements OnInit {
   ngOnInit() {
   }
 
+  // Redirecciona a la pantalla de reservas
   bookSport(sport) {
     this.router.navigate(['booking', sport]);
+  }
+
+  // Redirecciona a la pantalla de settings
+  settings() {
+    this.router.navigate(['settings']);
   }
 
 }
