@@ -11,9 +11,6 @@ export class FirebaseService {
   // Guarda una nueva reserva
   reserve(hour: string, day: string, user: string) {
     console.log('Reserva a guardar');
-    console.log(hour);
-    console.log(day);
-    console.log(user);
     return new Promise<any>((resolve, reject) => {
       firebase.firestore().collection('bookings').add({
         day,

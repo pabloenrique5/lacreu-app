@@ -53,7 +53,6 @@ export class BookingPage implements OnInit {
 
   // Evento que se dispara cuando se selecciona una fecha
   onChange($e) {
-    console.log('Fecha');
     const fecha = $e.format('DD-MM-YYYY');
     this.formattedDay = $e.format('DD-MM-YYYY');
     this.hours = [];
@@ -63,14 +62,11 @@ export class BookingPage implements OnInit {
       snapshot => {
         this.hours = [];
         snapshot.forEach(doc => {
-          console.log('Reserva encontrada');
-          console.log(doc.data());
           map.set(doc.data().hour, doc.data().user);
         });
         firebase.firestore().collection('hours').orderBy('hour').get().then(querySnapshot => {
           querySnapshot.forEach(doc => {
             const hour: any = {};
-            console.log(doc.data().hour);
             if (map.get(doc.data().hour) !== null) {
               hour.hour = doc.data().hour;
               hour.user = map.get(doc.data().hour);
@@ -79,8 +75,6 @@ export class BookingPage implements OnInit {
           });
       });
     });
-    console.log('Las horas');
-    console.log(this.hours);
   }
 
   // Reserva la hora seleccionada
