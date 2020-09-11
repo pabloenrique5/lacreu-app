@@ -10,7 +10,6 @@ export class FirebaseService {
 
   // Guarda una nueva reserva
   reserve(hour: string, day: string, user: string) {
-    console.log('Reserva a guardar');
     return new Promise<any>((resolve, reject) => {
       firebase.firestore().collection('bookings').add({
         day,
@@ -20,6 +19,18 @@ export class FirebaseService {
         resolve(res);
       }).catch((error) => {
         console.log(error);
+        reject(error);
+      });
+    });
+  }
+
+  // Elimina una reserva de Firebase
+  cancel(id: string) {
+    return new Promise<any>((resolve, reject) => {
+      firebase.firestore().collection('bookings').doc(id).delete()
+      .then(doc => {
+        resolve(doc);
+      }).catch((error) => {
         reject(error);
       });
     });

@@ -21,7 +21,12 @@
       <ion-label>{{ h.hour }}</ion-label>
       <ion-label>{{ h.user }}</ion-label>
       <div *ngIf="h.user; else nobooked">
-        <ion-button color="danger"  [disabled]="true">Reservado</ion-button>
+        <div *ngIf="h.user === currentUser; else notuser">
+          <ion-button color="danger" (click)="cancelReserve(h.id)">Reservado</ion-button>
+        </div>
+        <ng-template #notuser>
+          <ion-button color="danger" [disabled]="true">Reservado</ion-button>
+        </ng-template>
       </div>
       <ng-template #nobooked>
         <ion-button color="success" (click)="reserve(h.hour)">Reservar</ion-button>

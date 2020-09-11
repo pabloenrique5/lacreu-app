@@ -27,8 +27,13 @@ export class ReestablishPage implements OnInit {
     }).catch(error => {
       switch (error.code) {
         case 'auth/invalid-email':
-          this.toastService.presentToast('El correo electrónico no es válido');
+          this.toastService.presentAlert('Atención', 'El correo electrónico no es válido');
           break;
+        case 'auth/user-not-found':
+          this.toastService.presentAlert('Atención', 'Todavía no existe un usuario con ese correo electrónico');
+          break;
+        default:
+          this.toastService.presentAlert('Error', 'Ha ocurrido un error');
       }
     });
   }

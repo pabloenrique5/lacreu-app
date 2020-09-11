@@ -26,6 +26,7 @@
     "@ionic/angular": "^5.0.0",
     "@ionic/lab": "^3.2.5",
     "cordova-android": "8.1.0",
+    "cordova-ios": "6.1.1",
     "firebase": "^7.19.1",
     "ion2-calendar": "^3.0.0-rc.0",
     "moment": "^2.27.0",
@@ -75,7 +76,8 @@
       "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

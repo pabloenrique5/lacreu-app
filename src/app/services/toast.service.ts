@@ -57,4 +57,32 @@ export class ToastService {
     });
     await alert.present();
   }
+
+  // Presentar diálogo de confirmación
+  async presentAlertCancel(id) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirmación',
+      message: '¿Quieres cancelar tu reserva?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Sí',
+          handler: () => {
+            this.firebaseService.cancel(id).then(() => {
+              this.presentAlert('Información', 'Hora cancelada con éxito');
+            }).catch((error) => {
+              console.log(error);
+              this.presentAlert('Atención', 'Ha ocurrido un error al cancelar la hora');
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 }
