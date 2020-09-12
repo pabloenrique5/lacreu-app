@@ -31,7 +31,7 @@ export class ToastService {
   }
 
   // Presentar diálogo de confirmación
-  async presentAlertConfirm(hour, day, user) {
+  async presentAlertConfirm(hour, day, user, sport) {
     const alert = await this.alertCtrl.create({
       header: 'Confirmación',
       message: '¿Quieres reservar esta hora?',
@@ -45,7 +45,7 @@ export class ToastService {
         }, {
           text: 'Sí',
           handler: () => {
-            this.firebaseService.reserve(hour, day, user).then(() => {
+            this.firebaseService.reserve(hour, day, user, sport).then(() => {
               this.presentAlert('Información', 'Hora reservada con éxito');
             }).catch((error) => {
               console.log(error);
@@ -58,7 +58,7 @@ export class ToastService {
     await alert.present();
   }
 
-  // Presentar diálogo de confirmación
+  // Presentar diálogo de cancelación
   async presentAlertCancel(id) {
     const alert = await this.alertCtrl.create({
       header: 'Confirmación',

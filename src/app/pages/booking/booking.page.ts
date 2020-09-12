@@ -46,14 +46,13 @@ export class BookingPage implements OnInit {
     const map = new Map();
     const mapId = new Map();
     // Obtenemos las reservas del día seleccionado
-    firebase.firestore().collection('bookings').where('day', '==', fecha).onSnapshot(
+    firebase.firestore().collection('bookings').where('day', '==', fecha).where('sport', '==', this.selectedSport).onSnapshot(
       snapshot => {
         snapshot.docChanges().forEach(change => {
-          console.log('Change');
-          console.log(change.type);
-          console.log(change.doc.data());
-          map.delete(change.doc.data().hour);
-          mapId.delete(change.doc.data().hour);
+          if (change.type === 'removed') {
+            map.delete(change.doc.data().hour);
+            mapId.delete(change.doc.data().hour);
+          }
         });
         this.hours = [];
         snapshot.forEach(doc => {
@@ -76,7 +75,7 @@ export class BookingPage implements OnInit {
 
   // Reserva la hora seleccionada
   reserve(hour) {
-    this.toastService.presentAlertConfirm(hour, this.formattedDay, this.authService.getCurrentUser().displayName);
+    this.toastService.presentAlertConfirm(hour, this.formattedDay, this.authService.getCurrentUser().displayName, this.selectedSport);
   }
 
   // Cancela una reserva
