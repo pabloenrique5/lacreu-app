@@ -20,6 +20,8 @@ export class BookingPage implements OnInit {
   formattedDay: string;
   currentUser: string;
 
+  unsubscribe: any;
+
   date: Date = new Date();
   type: 'string';
   options: CalendarComponentOptions = {
@@ -46,29 +48,30 @@ export class BookingPage implements OnInit {
     const map = new Map();
     const mapId = new Map();
     // Obtenemos las reservas del día seleccionado
+    this.unsubscribe =
     firebase.firestore().collection('bookings').where('day', '==', fecha).where('sport', '==', this.selectedSport).onSnapshot(
-      snapshot => {
-        snapshot.docChanges().forEach(change => {
-          if (change.type === 'removed') {
-            map.delete(change.doc.data().hour);
-            mapId.delete(change.doc.data().hour);
+    snapshot => {
+      snapshot.docChanges().forEach(change => {
+        if (change.type === 'removed') {
+          map.delete(change.doc.data().hour);
+          mapId.delete(change.doc.data().hour);
+        }
+      });
+      this.hours = [];
+      snapshot.forEach(doc => {
+        map.set(doc.data().hour, doc.data().user);
+        mapId.set(doc.data().hour, doc.id);
+      });
+      firebase.firestore().collection('hours').orderBy('hour').get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          const hour: any = {};
+          if (map.get(doc.data().hour) !== null) {
+            hour.hour = doc.data().hour;
+            hour.user = map.get(doc.data().hour);
+            hour.id = mapId.get(doc.data().hour);
           }
+          this.hours.push(hour);
         });
-        this.hours = [];
-        snapshot.forEach(doc => {
-          map.set(doc.data().hour, doc.data().user);
-          mapId.set(doc.data().hour, doc.id);
-        });
-        firebase.firestore().collection('hours').orderBy('hour').get().then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            const hour: any = {};
-            if (map.get(doc.data().hour) !== null) {
-              hour.hour = doc.data().hour;
-              hour.user = map.get(doc.data().hour);
-              hour.id = mapId.get(doc.data().hour);
-            }
-            this.hours.push(hour);
-          });
       });
     });
   }
@@ -81,6 +84,11 @@ export class BookingPage implements OnInit {
   // Cancela una reserva
   cancelReserve(id) {
     this.toastService.presentAlertCancel(id);
+  }
+
+  // Cuando vamos a abandonar la página, dejamos de escuchar
+  ionViewDidLeave(){
+    this.unsubscribe();
   }
 
 }
