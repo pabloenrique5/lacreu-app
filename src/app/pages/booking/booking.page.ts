@@ -1,8 +1,9 @@
+import { LoadingService } from 'src/app/services/loading.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CalendarComponentOptions, CalendarModalOptions, DayConfig, CalendarModal, CalendarResult } from 'ion2-calendar';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast.service';
 import * as firebase from 'firebase';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -31,7 +32,8 @@ export class BookingPage implements OnInit {
     color: 'primary'
   };
 
-  constructor(private route: ActivatedRoute, private toastService: ToastService, private authService: AuthService) {}
+  constructor(private route: ActivatedRoute, private toastService: ToastService, private authService: AuthService,
+              private loadingService: LoadingService) {}
 
   ngOnInit() {
     this.route.params.subscribe(param => {
@@ -41,36 +43,41 @@ export class BookingPage implements OnInit {
   }
 
   // Evento que se dispara cuando se selecciona una fecha
-  onChange($e) {
+  async onChange($e) {
     const fecha = $e.format('DD-MM-YYYY');
     this.formattedDay = $e.format('DD-MM-YYYY');
     this.hours = [];
     const map = new Map();
     const mapId = new Map();
+    this.unsubscribe = {};
     // Obtenemos las reservas del día seleccionado
-    this.unsubscribe =
-    firebase.firestore().collection('bookings').where('day', '==', fecha).where('sport', '==', this.selectedSport).onSnapshot(
-    snapshot => {
-      snapshot.docChanges().forEach(change => {
-        if (change.type === 'removed') {
-          map.delete(change.doc.data().hour);
-          mapId.delete(change.doc.data().hour);
-        }
-      });
-      this.hours = [];
-      snapshot.forEach(doc => {
-        map.set(doc.data().hour, doc.data().user);
-        mapId.set(doc.data().hour, doc.id);
-      });
-      firebase.firestore().collection('hours').orderBy('hour').get().then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          const hour: any = {};
-          if (map.get(doc.data().hour) !== null) {
-            hour.hour = doc.data().hour;
-            hour.user = map.get(doc.data().hour);
-            hour.id = mapId.get(doc.data().hour);
+    const loading = this.loadingService.presentLoading();
+    (await loading).present().then(() => {
+      this.unsubscribe =
+      firebase.firestore().collection('bookings').where('day', '==', fecha).where('sport', '==', this.selectedSport).onSnapshot(
+      snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if (change.type === 'removed') {
+            map.delete(change.doc.data().hour);
+            mapId.delete(change.doc.data().hour);
           }
-          this.hours.push(hour);
+        });
+        this.hours = [];
+        snapshot.forEach(doc => {
+          map.set(doc.data().hour, doc.data().user);
+          mapId.set(doc.data().hour, doc.id);
+        });
+        firebase.firestore().collection('hours').orderBy('hour').get().then(async querySnapshot => {
+          querySnapshot.forEach(doc => {
+            const hour: any = {};
+            if (map.get(doc.data().hour) !== null) {
+              hour.hour = doc.data().hour;
+              hour.user = map.get(doc.data().hour);
+              hour.id = mapId.get(doc.data().hour);
+            }
+            this.hours.push(hour);
+          });
+          (await loading).dismiss();
         });
       });
     });
@@ -88,7 +95,9 @@ export class BookingPage implements OnInit {
 
   // Cuando vamos a abandonar la página, dejamos de escuchar
   ionViewDidLeave(){
-    this.unsubscribe();
+    if (this.unsubscribe !== undefined) {
+      this.unsubscribe();
+    }
   }
 
 }
