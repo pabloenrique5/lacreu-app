@@ -9,8 +9,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import {LoadingController} from '@ionic/angular';
-
 // Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -26,7 +24,7 @@ import { CalendarModule } from 'ion2-calendar';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig),
-            AngularFirestoreModule, AngularFireAuthModule, CalendarModule, LoadingController],
+            AngularFirestoreModule, AngularFireAuthModule, CalendarModule],
   providers: [
     StatusBar,
     SplashScreen,
