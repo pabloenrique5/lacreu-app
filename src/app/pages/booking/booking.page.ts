@@ -1,12 +1,10 @@
+
 import { LoadingService } from 'src/app/services/loading.service';
-import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CalendarComponentOptions, CalendarModalOptions, DayConfig, CalendarModal, CalendarResult } from 'ion2-calendar';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { CalendarComponentOptions } from 'ion2-calendar';
 import { ToastService } from 'src/app/services/toast.service';
 import * as firebase from 'firebase';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({

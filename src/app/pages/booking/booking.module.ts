@@ -1,3 +1,4 @@
+import { PipesModule } from './../../pipes/pipes.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,13 +12,17 @@ import { BookingPage } from './booking.page';
 // Calendario
 import { CalendarModule } from 'ion2-calendar';
 
+// Pipe
+import { CapitalPipe } from './../../pipes/capital.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     BookingPageRoutingModule,
-    CalendarModule
+    CalendarModule,
+    PipesModule
   ],
   declarations: [BookingPage]
 })
