@@ -4,3 +4,27 @@
     margin-right: auto;
     width: 90%;
 }
+
+.name-label {
+    font-size: 16px;
+}
+
+.name-icon {
+    float: right;
+    margin-left: 2%;
+}
+
+.name-cont {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+}
+
+ion-footer {
+    height: 10%;
+    .footer-button {
+        width: 90%;
+        margin: auto;
+    }
+}
+

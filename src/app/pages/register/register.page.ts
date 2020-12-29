@@ -16,7 +16,8 @@ export class RegisterPage implements OnInit {
   password: string;
   confirmPassword: string;
 
-  constructor(private router: Router, private toastService: ToastService, private authService: AuthService) { }
+  constructor(private router: Router, private toastService: ToastService, private authService: AuthService,
+              private userService: UserService) { }
 
   ngOnInit() {
     this.email = '';
@@ -32,6 +33,8 @@ export class RegisterPage implements OnInit {
           this.toastService.presentAlert('Información',
           'Le acabamos de enviar un correo electrónico. Verifíquelo en su bandeja de entrada');
           this.router.navigate(['login']);
+          // Guardamos el documento del usuario
+          this.userService.saveUser(this.email, this.user);
         }).catch(error => {
           switch (error.code) {
             case 'auth/email-already-in-use':

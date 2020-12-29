@@ -7,10 +7,26 @@
 </ion-header>
 
 <ion-content>
-  <div id="container">
+  <div class="name-cont">
+    <div *ngIf="isDisabled; else other">
+      <ion-label class="name-label" position="stacked">Nombre:</ion-label>
+      <ion-icon class="name-icon" size="large" name="create-outline" slot="end" color="primary" (click)="onEditName(false)"></ion-icon>
+      <ion-label class="name-cont" position="stacked">{{name}}</ion-label>
+    </div>
+    <ng-template #other>
+      <ion-label class="name-label" position="stacked">Nombre:</ion-label>
+      <ion-icon class="name-icon" size="large" name="checkmark-outline" slot="end" color="primary" (click)="onEditName(true)"></ion-icon>
+      <ion-input class="name-cont" autofocus="true" [(ngModel)]="name"></ion-input>
+    </ng-template>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <div>
     <ion-buttons>
-      <ion-button color="primary" class="center" shape="round" fill="outline" 
+      <ion-button color="primary" class="footer-button" shape="round" fill="outline" 
       size="default" expand="block" (click)="closeSession()">Cerrar sesión</ion-button>
     </ion-buttons>
   </div>
-</ion-content>
+</ion-footer>

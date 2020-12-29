@@ -2,6 +2,7 @@ import { ToastService } from './toast.service';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
+import { error } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -85,5 +86,23 @@ export class AuthService {
         reject(error);
       });
     });
+  }
+
+  // Actualiza el nombre de usuario del usuario logado
+  updateUserProfile(newName: string) {
+    const user = this.getCurrentUser();
+    if (newName !== user.displayName) {
+      return new Promise<any>((resolve, reject) => {
+        user.updateProfile({
+          displayName: newName
+        }).then((res) => {
+          console.log('[AuthService]: Usuario actualizado');
+          resolve(res);
+        }).catch((error) => {
+          console.log('[AuthService]: Error al actualizar el usuario');
+          reject(error);
+        });
+      });
+    }
   }
 }

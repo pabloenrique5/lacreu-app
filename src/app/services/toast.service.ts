@@ -22,7 +22,6 @@ export class ToastService {
   // Presentar alerta
   async presentAlert(head, mes) {
     const alert = await this.alertCtrl.create({
-      cssClass: 'my-custom-class',
       header: head,
       message: mes,
       buttons: ['OK']
