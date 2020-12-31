@@ -3,12 +3,10 @@ export const environment = {
 };
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyAxt9WtdZuDc9fvRclyVGU4CJhhTi5lE-M',
-  authDomain: 'la-creu.firebaseapp.com',
-  databaseURL: 'https://la-creu.firebaseio.com',
-  projectId: 'la-creu',
-  storageBucket: 'la-creu.appspot.com',
-  messagingSenderId: '303918922902',
-  appId: '1:303918922902:web:33f83e587a2759528316b7',
-  measurementId: 'G-XXPHYHQPQ9'
+  apiKey: 'AIzaSyAeDdjT2JRcWa4bEMUUoWf6gvz2MFdJfEg',
+  authDomain: 'la-fresca-pro.firebaseapp.com',
+  projectId: 'la-fresca-pro',
+  storageBucket: 'la-fresca-pro.appspot.com',
+  messagingSenderId: '42796973097',
+  appId: '1:42796973097:web:ebcb3dd46c2f2e959fb038'
 };
