@@ -1,13 +1,15 @@
 import { FirebaseService } from './firebase.service';
 import { Injectable } from '@angular/core';
 import { ToastController, AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
 
-  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private firebaseService: FirebaseService) { }
+  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private firebaseService: FirebaseService,
+              private router: Router) { }
 
   // Presentar Toast
   async presentToast(mes) {
@@ -44,12 +46,13 @@ export class ToastService {
         }, {
           text: 'Sí',
           handler: () => {
-            this.firebaseService.reserve(hour, day, user, sport).then(() => {
+            this.router.navigate(['stripe']);
+            /*this.firebaseService.reserve(hour, day, user, sport).then(() => {
               this.presentAlert('Información', 'Hora reservada con éxito');
             }).catch((error) => {
               console.log(error);
               this.presentAlert('Atención', 'Ha ocurrido un error al reservar la hora');
-            });
+            });*/
           }
         }
       ]
